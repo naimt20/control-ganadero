@@ -10,7 +10,7 @@ from data_manager import DataHandler
 
 st.set_page_config(page_title="Control Ganadero OS", layout="wide")
 
-# Estilos Futuristas
+# Estilos
 st.markdown("""
     <style>
     .stApp { background-color: #0e1117; color: #e0e0e0; }
@@ -20,24 +20,22 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# Cargar Logo en el Sidebar
+# Logo y Título
 st.sidebar.title("📍 Menú de Control")
-if os.path.exists("ganado.png"):
-    st.sidebar.image("ganado.png", width=150)
+if os.path.exists("ganado.png"): st.sidebar.image("ganado.png", width=150)
 
 opcion = st.sidebar.radio("Sección:", ["Inventario", "Ventas", "Pagos_Detalle", "Clientes"])
 
-# Título y Logo principal
 col1, col2 = st.columns([1, 6])
 with col1:
-    if os.path.exists("logo.png"):
-        st.image("logo.png", width=100)
+    if os.path.exists("ganado.png"): st.image("ganado.png", width=100)
 with col2:
     st.title(f"Gestión de {opcion}")
 
+# Conexión a BD
 db = DataHandler('credenciales.json', '11bseSAQ565xrs-VSUgb3g8UdAo7qpTPBqPqTF6ktn1k')
 
-# --- LÓGICA DE TABLAS ---
+# Lógica
 if opcion == "Inventario":
     with st.form("inv_form"):
         col1, col2 = st.columns(2)
@@ -46,7 +44,7 @@ if opcion == "Inventario":
         lote = col2.text_input("Lote")
         costo = col2.number_input("Costo")
         estado = col2.selectbox("Estado", ["En Finca", "Vendido", "Enfermo"])
-        if st.form_submit_button("Guardar en Inventario"):
+        if st.form_submit_button("Guardar"):
             db.add_record('Inventario', [id_a, str(f_e), lote, costo, estado])
             st.success("Guardado")
 
