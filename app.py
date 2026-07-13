@@ -44,8 +44,9 @@ if opcion == "Inventario":
         lote = col2.text_input("Lote")
         costo = col2.number_input("Costo")
         estado = col2.selectbox("Estado", ["En Finca", "Vendido", "Enfermo", "Rechazado"])
+        observaciones = col2.text_area("Observaciones", placeholder="Ej: Regresó por peso insuficiente")
         if st.form_submit_button("Guardar"):
-            db.add_record('Inventario', [id_a, str(f_e), lote, costo, estado])
+            db.add_record('Inventario', [id_a, str(f_e), lote, costo, estado, observaciones])
             st.success("Guardado")
 
 elif opcion == "Ventas":
